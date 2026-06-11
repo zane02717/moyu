@@ -1,4 +1,6 @@
 from pathlib import Path
+import secrets
+import time
 from urllib.parse import urlencode
 from uuid import uuid4
 
@@ -17,6 +19,7 @@ ALLOWED_IMAGE_TYPES = {
 }
 
 VERCEL_BLOB_API_URL = "https://vercel.com/api/blob"
+VERCEL_BLOB_API_VERSION = "12"
 
 
 async def save_images(
@@ -74,15 +77,51 @@ async def save_image_content(filename: str, content: bytes, content_type: str, s
 
 async def save_to_vercel_blob(filename: str, content: bytes, content_type: str, token: str) -> str:
     pathname = f"uploads/{filename}"
+    store_id = parse_blob_store_id(token)
     headers = {
         "Authorization": f"Bearer {token}",
+        "x-api-version": VERCEL_BLOB_API_VERSION,
+        "x-content-length": str(len(content)),
         "x-vercel-blob-access": "public",
         "x-content-type": content_type,
         "x-allow-overwrite": "0",
     }
+    if store_id:
+        headers.update(
+            {
+                "x-api-blob-request-id": f"{store_id}:{int(time.time() * 1000)}:{secrets.token_hex(8)}",
+                "x-vercel-blob-store-id": store_id,
+                "x-api-blob-request-attempt": "0",
+            }
+        )
+
     async with httpx.AsyncClient(timeout=30) as client:
         response = await client.put(f"{VERCEL_BLOB_API_URL}/?{urlencode({'pathname': pathname})}", content=content, headers=headers)
     if response.status_code >= 400:
-        raise HTTPException(status_code=status.HTTP_502_BAD_GATEWAY, detail="图片存储失败")
+        raise HTTPException(status_code=status.HTTP_502_BAD_GATEWAY, detail=f"图片存储失败: {blob_error_message(response)}")
     data = response.json()
     return data["url"]
+
+
+def parse_blob_store_id(token: str) -> str | None:
+    parts = token.split("_")
+    if len(parts) >= 5 and parts[:3] == ["vercel", "blob", "rw"]:
+        return parts[3]
+    return None
+
+
+def blob_error_message(response: httpx.Response) -> str:
+    try:
+        data = response.json()
+    except ValueError:
+        return response.text[:200] or f"HTTP {response.status_code}"
+
+    error = data.get("error")
+    if isinstance(error, dict):
+        message = error.get("message") or error.get("code")
+        if message:
+            return str(message)[:200]
+    message = data.get("message")
+    if message:
+        return str(message)[:200]
+    return f"HTTP {response.status_code}"
