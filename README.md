@@ -10,6 +10,32 @@
 - 实时：WebSocket
 - 部署：Docker Compose
 
+## 目录结构
+
+```text
+.
+├── backend/            # FastAPI 后端
+│   ├── app/
+│   │   ├── api/        # 路由、依赖、实时连接和 API helper
+│   │   ├── core/       # 配置和安全
+│   │   ├── db/         # 数据库连接和会话
+│   │   ├── models/     # SQLAlchemy ORM 模型
+│   │   ├── schemas/    # Pydantic 入参/出参模型
+│   │   └── services/   # 上传、序列化等业务服务
+│   ├── alembic/        # 数据库迁移脚本
+│   └── requirements.txt
+├── frontend/           # React + Vite 前端应用
+│   ├── src/            # 页面、组件、API 客户端和类型定义
+│   └── package.json
+├── docker/             # 前后端镜像和 Nginx 配置
+│   ├── backend.Dockerfile
+│   ├── frontend.Dockerfile
+│   └── nginx.conf
+├── docker-compose.yml  # 本地和内网部署编排
+├── package.json        # 前端 workspace 脚本
+└── .env.example        # 环境变量示例
+```
+
 ## 本地/内网启动
 
 ```bash
@@ -39,7 +65,7 @@ docker compose up --build
 后端：
 
 ```bash
-cd apps/api
+cd backend
 python3 -m venv .venv
 .venv/bin/pip install -r requirements.txt
 .venv/bin/uvicorn app.main:app --reload
@@ -49,15 +75,15 @@ python3 -m venv .venv
 
 ```bash
 npm install
-npm run dev:web
+npm run dev:frontend
 ```
 
 测试：
 
 ```bash
-cd apps/api
+cd backend
 .venv/bin/pytest tests -q
-npm run build:web
+npm run build:frontend
 ```
 
 ## 图片存储

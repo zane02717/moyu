@@ -1,10 +1,10 @@
 from fastapi import Depends, HTTPException, Request, status
 from sqlalchemy.orm import Session
 
-from app.config import Settings, get_settings
+from app.core.config import Settings, get_settings
 from app.db import get_db
 from app.models import User
-from app.security import decode_session_token
+from app.core.security import decode_session_token
 
 
 def get_current_user(

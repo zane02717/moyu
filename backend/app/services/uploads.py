@@ -4,7 +4,7 @@ from uuid import uuid4
 from fastapi import HTTPException, UploadFile, status
 from sqlalchemy.orm import Session
 
-from app.config import Settings
+from app.core.config import Settings
 from app.models import Attachment
 
 ALLOWED_IMAGE_TYPES = {

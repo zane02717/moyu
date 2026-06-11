@@ -9,3 +9,5 @@ __pycache__/
 *.pyc
 *.db
 uploads/
+frontend/dist/
+backend/uploads/

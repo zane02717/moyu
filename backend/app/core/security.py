@@ -3,7 +3,7 @@ from datetime import datetime, timedelta, timezone
 import jwt
 from passlib.context import CryptContext
 
-from app.config import get_settings
+from app.core.config import get_settings
 
 
 password_context = CryptContext(schemes=["pbkdf2_sha256"], deprecated="auto")

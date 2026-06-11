@@ -2,11 +2,14 @@
   "name": "gejian",
   "private": true,
   "workspaces": [
-    "apps/web"
+    "frontend"
   ],
   "scripts": {
-    "dev:web": "npm --workspace apps/web run dev",
-    "build:web": "npm --workspace apps/web run build",
-    "test:api": "cd apps/api && .venv/bin/pytest tests -q"
+    "dev:frontend": "npm --workspace frontend run dev",
+    "build:frontend": "npm --workspace frontend run build",
+    "dev:web": "npm run dev:frontend",
+    "build:web": "npm run build:frontend",
+    "test:backend": "cd backend && .venv/bin/pytest tests -q",
+    "test:api": "npm run test:backend"
   }
 }
