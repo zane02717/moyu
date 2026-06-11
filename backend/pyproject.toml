@@ -1,0 +1,5 @@
+[project]
+name = "app"
+version = "0.1.0"
+dependencies = [ "alembic==1.13.2", "email-validator==2.2.0", "fastapi==0.111.0", "httpx==0.27.0", "passlib==1.7.4", "psycopg[binary]==3.2.13", "pydantic-settings==2.4.0", "pyjwt==2.9.0", "python-multipart==0.0.9", "sqlalchemy==2.0.32", "uvicorn[standard]==0.30.5", "pytest==8.3.2" ]
+requires-python = "~=3.12.0"

@@ -9,5 +9,17 @@
       "source": "/((?!api|uploads|ws).*)",
       "destination": "/index.html"
     }
-  ]
+  ],
+  "experimentalServices": {
+    "frontend": {
+      "root": "frontend",
+      "routePrefix": "/",
+      "framework": "vite"
+    },
+    "backend": {
+      "root": "backend",
+      "entrypoint": "app.main:app",
+      "routePrefix": "/_/backend"
+    }
+  }
 }
