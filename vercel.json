@@ -6,6 +6,18 @@
   "framework": "vite",
   "rewrites": [
     {
+      "source": "/api/:path*",
+      "destination": "/_/backend/api/:path*"
+    },
+    {
+      "source": "/uploads/:path*",
+      "destination": "/_/backend/uploads/:path*"
+    },
+    {
+      "source": "/ws",
+      "destination": "/_/backend/ws"
+    },
+    {
       "source": "/((?!api|uploads|ws|_/backend).*)",
       "destination": "/index.html"
     }
