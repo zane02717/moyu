@@ -1,4 +1,5 @@
 from functools import lru_cache
+import os
 from pathlib import Path
 
 from pydantic_settings import BaseSettings, SettingsConfigDict
@@ -27,5 +28,8 @@ class Settings(BaseSettings):
 @lru_cache
 def get_settings() -> Settings:
     settings = Settings()
-    settings.uploads_dir.mkdir(parents=True, exist_ok=True)
+    if os.getenv("VERCEL") and settings.uploads_dir == Path("uploads"):
+        settings.uploads_dir = Path("/tmp/uploads")
+    if os.getenv("VERCEL") and settings.database_url == "sqlite:///./gejian.db":
+        settings.database_url = "sqlite:////tmp/gejian.db"
     return settings

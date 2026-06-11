@@ -8,8 +8,6 @@ from app.api.routes import activity, admin, auth, comments, health, notification
 from app.core.config import get_settings
 from app.db import Base, engine
 
-Base.metadata.create_all(bind=engine)
-
 settings = get_settings()
 app = FastAPI(title="格间 API")
 
@@ -23,6 +21,12 @@ app.add_middleware(
 
 Path(settings.uploads_dir).mkdir(parents=True, exist_ok=True)
 app.mount("/uploads", StaticFiles(directory=settings.uploads_dir), name="uploads")
+
+
+@app.on_event("startup")
+def initialize_runtime() -> None:
+    Path(settings.uploads_dir).mkdir(parents=True, exist_ok=True)
+    Base.metadata.create_all(bind=engine)
 
 app.include_router(health.router)
 app.include_router(auth.router)
