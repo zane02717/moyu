@@ -6,7 +6,7 @@
   "framework": "vite",
   "rewrites": [
     {
-      "source": "/((?!api|uploads|ws).*)",
+      "source": "/((?!api|uploads|ws|_/backend).*)",
       "destination": "/index.html"
     }
   ],
