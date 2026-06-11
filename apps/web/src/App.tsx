@@ -1129,11 +1129,6 @@ export function App() {
   return (
     <main className="workbook-page">
       <header className="book-titlebar">
-        <div className="window-dots" aria-hidden="true">
-          <span />
-          <span />
-          <span />
-        </div>
         <div className="book-identity">
           <strong>{productName}</strong>
           <span>公共格点工作簿</span>

@@ -24,6 +24,7 @@ services:
     environment:
       DATABASE_URL: ${DATABASE_URL:-postgresql+psycopg://gejian:gejian_password@db:5432/gejian}
       JWT_SECRET: ${JWT_SECRET:-replace-with-a-long-random-secret}
+      INVITE_CODE: ${INVITE_CODE:-gejian-invite}
       ADMIN_EMAIL: ${ADMIN_EMAIL:-admin@example.com}
       CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost:5173,http://127.0.0.1:5173}
       UPLOADS_DIR: /app/uploads

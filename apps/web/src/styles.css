@@ -1570,37 +1570,12 @@ textarea {
 
 .book-titlebar {
   display: grid;
-  grid-template-columns: auto minmax(170px, 260px) minmax(260px, 680px) auto;
+  grid-template-columns: minmax(170px, 260px) minmax(260px, 680px) auto;
   align-items: center;
   gap: 14px;
   border-bottom: 1px solid #bfcac2;
   background: #f7f8f5;
   padding: 0 12px;
-}
-
-.window-dots {
-  display: flex;
-  gap: 7px;
-}
-
-.window-dots span {
-  width: 11px;
-  height: 11px;
-  border-radius: 50%;
-  border: 1px solid rgba(0, 0, 0, 0.16);
-  background: #d7ded8;
-}
-
-.window-dots span:nth-child(1) {
-  background: #ef705d;
-}
-
-.window-dots span:nth-child(2) {
-  background: #ecc75c;
-}
-
-.window-dots span:nth-child(3) {
-  background: #62b977;
 }
 
 .book-identity {
@@ -3390,13 +3365,12 @@ textarea {
   }
 
   .book-titlebar {
-    grid-template-columns: auto 1fr auto;
+    grid-template-columns: 1fr auto;
     gap: 8px;
     padding: 8px;
   }
 
-  .book-identity span,
-  .window-dots {
+  .book-identity span {
     display: none;
   }
 
