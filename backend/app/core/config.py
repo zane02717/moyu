@@ -33,4 +33,8 @@ def get_settings() -> Settings:
         settings.uploads_dir = Path("/tmp/uploads")
     if os.getenv("VERCEL") and settings.database_url == "sqlite:///./gejian.db":
         settings.database_url = "sqlite:////tmp/gejian.db"
+    if settings.database_url.startswith("postgres://"):
+        settings.database_url = settings.database_url.replace("postgres://", "postgresql+psycopg://", 1)
+    elif settings.database_url.startswith("postgresql://"):
+        settings.database_url = settings.database_url.replace("postgresql://", "postgresql+psycopg://", 1)
     return settings
