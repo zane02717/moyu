@@ -17,6 +17,7 @@ class Settings(BaseSettings):
     admin_email: str | None = None
     invite_code: str | None = None
     uploads_dir: Path = Path("uploads")
+    blob_read_write_token: str | None = None
     max_image_bytes: int = 5 * 1024 * 1024
     max_images_per_request: int = 4
 
