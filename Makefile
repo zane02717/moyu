@@ -1,10 +1,10 @@
 .PHONY: dev dev-backend dev-frontend build up down
 
 dev-backend:
-	cd backend && .venv/bin/python main.py
+	cd backend && python3 main.py
 
 dev-frontend:
-	npm --workspace frontend run dev
+	cd frontend && npm run dev
 
 dev:
 	make -j2 dev-backend dev-frontend

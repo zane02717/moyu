@@ -1,9 +1,11 @@
 node_modules/
+frontend/node_modules/
 dist/
 *.tsbuildinfo
 .DS_Store
 .env
 .venv/
+backend/.venv/
 __pycache__/
 .pytest_cache/
 *.pyc

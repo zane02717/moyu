@@ -32,7 +32,7 @@
 │   ├── frontend.Dockerfile
 │   └── nginx.conf
 ├── docker-compose.yml  # 本地和内网部署编排
-├── package.json        # 前端 workspace 脚本
+├── Makefile            # 常用开发命令
 └── .env.example        # 环境变量示例
 ```
 
@@ -68,14 +68,15 @@ docker compose up --build
 cd backend
 python3 -m venv .venv
 .venv/bin/pip install -r requirements.txt
-.venv/bin/uvicorn app.main:app --reload
+python3 main.py
 ```
 
 前端：
 
 ```bash
+cd frontend
 npm install
-npm run dev:frontend
+npm run dev
 ```
 
 测试：
@@ -83,7 +84,8 @@ npm run dev:frontend
 ```bash
 cd backend
 .venv/bin/pytest tests -q
-npm run build:frontend
+cd ../frontend
+npm run build
 ```
 
 ## 图片存储
